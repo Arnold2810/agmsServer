@@ -1,3 +1,14 @@
+server:
+  port: 8080
+
+  #SSL
+#  ssl:
+#    enabled: true
+#    key-store: /home/ubuntu/agmscare/agmscare_kr.jks
+#    key-store-type: JKS
+#    key-store-password: uxnsw0214 # jks 또는 pfx 암호
+#    key-alias: agmscare_kr
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5555/agms?useSSl=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
@@ -12,6 +23,10 @@ spring:
   sql:
     init:
       mode: always
+
+  # Session
+  session:
+    store-type: jdbc
 
   jpa:
     hibernate:
@@ -30,22 +45,22 @@ spring:
     defer-datasource-initialization: true
     database: postgresql  #mysql
 
-    mail:
-      #    host: smtp.gmail.com
-      username: agms@uxn.co.kr
-      password: uthfkglqvwpayxqw
-      properties:
-        mail.smtp.auth: true
-        mail.smtp.starttls.enabled: true
-        mail:
-          smtp:
-            auth: true
-            starttls:
-              enabled: true
-            ssl:
-              enabled: true
-            socketFactory:
-              class: javax.net.ssl.SSLSocketFactory
+  mail:
+    #    host: smtp.gmail.com
+    username: agms@uxn.co.kr
+    password: uthfkglqvwpayxqw
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enabled: true
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enabled: true
+          ssl:
+            enabled: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
 
 logging:
   file:

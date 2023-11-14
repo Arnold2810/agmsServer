@@ -38,13 +38,13 @@ subprojects {
 	// 하위 모듈에서 공통으로 사용하는 세팅 추가.
 	// 루트 모듈 생성시 추가해주었던 종속성 항목들을 가져와 입력하면 된다.
 	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter-web'
 		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 		implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-		implementation 'org.springframework.boot:spring-boot-starter-security'
+//		implementation 'org.springframework.boot:spring-boot-starter-security'
 		implementation 'org.springframework.boot:spring-boot-starter-validation'
-		implementation 'org.springframework.boot:spring-boot-starter-web'
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testImplementation 'org.springframework.security:spring-security-test'
+//		testImplementation 'org.springframework.security:spring-security-test'
 		implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
 		// mail
@@ -106,12 +106,13 @@ project(':agmsService') {
 		implementation project(':agmsCommon') // 컴파일 시 agmsCommon project 로딩! agmsCommon 모듈에 의존성이 생긴다.
 
 		// 이하 agmsService 에서만 사용할 종속성 추가
-		implementation 'org.springframework.boot:spring-boot-starter-web'
-		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-		implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-		runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-		runtimeOnly 'org.postgresql:postgresql'
+		implementation 'org.springframework.boot:spring-boot-starter'
+		testImplementation('org.springframework.boot:spring-boot-starter-test') {
+			exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+		}
 
+		testImplementation 'org.projectlombok:lombok'
+   		implementation 'com.google.code.gson:gson:2.8.7'
 	}
 }
 // agmsService 모듈은
