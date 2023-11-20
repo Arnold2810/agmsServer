@@ -32,12 +32,12 @@ public class Article {
     private String content;
 
 //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-//    @CreatedDate
-    @Column(name = "created_at")
+    @CreatedDate
+    @Column(name = "created_at", updatable = false)
     private OffsetDateTime createdAt;//localtime + timezone
 
 //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-//    @LastModifiedDate
+    @LastModifiedDate
     @Column(name = "updated_at")
     private OffsetDateTime updatedAt;//localtime + timezone
 
