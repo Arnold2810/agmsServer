@@ -11,7 +11,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5555/agms?useSSl=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+    url: jdbc:postgresql://localhost:5555/agmsServer?useSSl=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: Pa$$w0rd

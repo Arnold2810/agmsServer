@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import kr.co.uxn.controller.blog.dto.AddArticleRequest;
 import kr.co.uxn.controller.blog.dto.UpdateArticleRequest;
 import kr.co.uxn.domain.blog.Article;
+import kr.co.uxn.domain.blog.Article;
 import kr.co.uxn.domain.blog.repository.BlogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

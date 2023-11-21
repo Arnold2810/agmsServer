@@ -16,9 +16,9 @@ import java.time.OffsetDateTime;
 
 @EntityListeners(AuditingEntityListener.class)
 @DynamicInsert//nullable 인 컬럼을 DDL 에서 default 값으로 변경 가능하도록
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

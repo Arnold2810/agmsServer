@@ -1,4 +1,4 @@
-package kr.co.uxn.domain.user;
+package kr.co.uxn.domain.person;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
