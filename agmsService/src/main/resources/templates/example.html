@@ -8,7 +8,7 @@
 <h1>타임리프 익히기</h1>
 <p th:text="${#temporals.format(today, 'yyyy-MM-dd')}"></p>
 
-<div th:object="${person}">
+<div th:object="${members}">
     <p th:text="|이름 : *{name}|"></p>
     <p th:text="|나이 : *{age}|"></p>
     <p>취미</p>
@@ -18,7 +18,7 @@
     </ul>
 </div>
 
-<a th:href="@{/api/articles/{id}(id=${person.id})}">글 보기</a>
+<a th:href="@{/api/articles/{id}(id=${members.id})}">글 보기</a>
 
 </body>
 </html>

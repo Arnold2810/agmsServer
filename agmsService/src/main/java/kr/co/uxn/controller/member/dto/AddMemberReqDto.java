@@ -1,6 +1,6 @@
-package kr.co.uxn.controller.person.dto;
+package kr.co.uxn.controller.member.dto;
 
-import kr.co.uxn.domain.person.Person;
+import kr.co.uxn.domain.member.Members;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -10,17 +10,18 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AddPersonRequest {
+public class AddMemberReqDto {
     private String name;
     private String email;
     private boolean isMale;
     private String password;
     private LocalDate birth;
     private String phoneNumber;
+    private boolean isEnabled;
     private String authority;
 
-    public Person toEntity() {
-        return Person.builder()
+    public Members toEntity() {
+        return Members.builder()
                 .name(name)
                 .email(email)
                 .isMale(isMale)
@@ -28,7 +29,7 @@ public class AddPersonRequest {
                 .birth(birth)
                 .phoneNumber(phoneNumber)
                 .authority(authority)
-//                .isEnabled(true)
+                .isEnabled(isEnabled)
                 .build();
     }
 }

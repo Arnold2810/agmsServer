@@ -1,6 +1,8 @@
-package kr.co.uxn.domain.person;
+package kr.co.uxn.domain.member;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,11 +21,12 @@ import java.time.OffsetDateTime;
 @Getter
 @Entity
 //@Builder
-public class Person {//implements UserDetails {//UserDetails 을 상속받아 인증 객체로 시용
+//Member & User는 postgresSQL 예약어로 테이블명으로 사용 할 수 없다.
+public class Members {//implements UserDetails {//UserDetails 을 상속받아 인증 객체로 시용
 
     @Builder
-    public Person(String name, String email, String password, boolean isMale,
-                  LocalDate birth, String phoneNumber, String authority) {
+    public Members(String name, String email, String password, boolean isMale,
+                   LocalDate birth, String phoneNumber, boolean isEnabled, String authority) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -31,7 +34,7 @@ public class Person {//implements UserDetails {//UserDetails 을 상속받아 �
         this.birth = birth;
         this.authority = authority;
         this.phoneNumber = phoneNumber;
-        this.isEnabled = true;
+        this.isEnabled = isEnabled;
     }
 
     @Id
@@ -42,16 +45,24 @@ public class Person {//implements UserDetails {//UserDetails 을 상속받아 �
     @Column(name = "name", nullable = false)
     private String name;
 
-//    @Email
+    @Email
+    @NotNull(message = "Email cannot be null")
+    @Size(min = 2, message = "Email not be less than two characters")
+    @Schema(description = "사용자 이메일", nullable = false, example = "k12@gmail.com")
     @Column(name = "email", length = 50, nullable = false, unique = true)
     private String email;
 
+    //size 조건이 맞지 않으면 DB에 추가 안된다.
+    @NotNull(message = "Password cannot be null")
+    @Size(min = 8, message = "The password must be at least 8 characters and " +
+            "contain a mixture of letters, numbers, and special symbols.")
+    @Schema(description = "사용자 비밀번호", nullable = false, example = "pwd123@")
     @Column(name = "password", nullable = false)
     private String password;
     @Column(name = "is_male", columnDefinition = "boolean default true", nullable = false)
     private boolean isMale = true;
 
-    @Column(name = "birth")
+    @Column(name = "birth", nullable = false)
     private LocalDate birth;
 
     //    @Enumerated(EnumType.STRING)

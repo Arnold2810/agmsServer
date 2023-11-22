@@ -1,10 +1,10 @@
-package kr.co.uxn.controller.person;
+package kr.co.uxn.controller.member;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class PersonViewController {
+public class MemberViewController {
 
     @GetMapping("/login")
     public String login() {

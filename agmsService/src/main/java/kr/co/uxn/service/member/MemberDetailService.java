@@ -1,4 +1,4 @@
-package kr.co.uxn.service.person;
+package kr.co.uxn.service.member;
 
 //import kr.co.uxn.domain.user.User;
 //import kr.co.uxn.domain.user.repository.UserRepository;
