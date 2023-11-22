@@ -1,11 +1,9 @@
 package kr.co.uxn.service.member;
 
 import kr.co.uxn.Constants;
-import kr.co.uxn.controller.member.dto.AddMemberReqDto;
 import kr.co.uxn.domain.member.Members;
 import kr.co.uxn.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
@@ -16,7 +14,6 @@ import jakarta.transaction.Transactional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional//트랜잭션 원칙을 지키도록 보장(트랜잭션 - 모든 과정은 독립적, 하나라도 실패 시 모두 취소 됨)
     public Members findByEmail(String email){

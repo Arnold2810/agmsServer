@@ -10,8 +10,9 @@ import kr.co.uxn.controller.member.dto.AddMemberReqDto;
 import kr.co.uxn.domain.member.Members;
 import kr.co.uxn.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -28,9 +29,11 @@ import java.time.*;
 public class MemberApiController {
 
     private final MemberService memberService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @PostMapping("/user")
-    public ResponseEntity<Integer> signup(AddMemberReqDto reqDto) {
+//    public ResponseEntity<Integer> signup(AddMemberReqDto reqDto) {
+    public String signup(AddMemberReqDto reqDto) {
 
         //이미 가입된 사람인지 체크
         Members isMember = memberService.findByEmail(reqDto.getEmail());
@@ -51,8 +54,8 @@ public class MemberApiController {
                     .builder()
                     .name(reqDto.getName())
                     .email(reqDto.getEmail())
-                    .password(reqDto.getPassword())
-//                    .password(passwordEncoder.encode(reqDto.getPassword()))
+//                    .password(reqDto.getPassword())
+                    .password(bCryptPasswordEncoder.encode(reqDto.getPassword()))
                     .isMale(reqDto.isMale())
                     .birth(reqDto.getBirth())
                     .phoneNumber(reqDto.getPhoneNumber())
@@ -61,7 +64,8 @@ public class MemberApiController {
                     .build();
 
             memberService.saveUser(member);
-            return ResponseEntity.ok(member.getId());
+            return "redirect:/login";
+//            return ResponseEntity.ok(member.getId());
         }
 
         //가입 이력이 있는 경우, 재 가입 가능 상태인지 확인
@@ -93,7 +97,8 @@ public class MemberApiController {
                         .build();
 
                 memberService.saveUser(member);
-                return ResponseEntity.ok(member.getId());
+                return "redirect:/login";
+//                return ResponseEntity.ok(member.getId());
             }
             log.warn("이미 가입된 이메일(중복), 회원 탈퇴 후 가입 가능");
             throw new LoginException("Duplicate Email", ErrorCode.DUPLICATE_ACCOUNT);
@@ -103,7 +108,7 @@ public class MemberApiController {
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
-//        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
         return "redirect:/login";
     }
 

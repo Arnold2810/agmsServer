@@ -10,9 +10,13 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 
 //@Table(name = "users")//맵핑할 테이블을 지정
 @EntityListeners(AuditingEntityListener.class)
@@ -22,7 +26,7 @@ import java.time.OffsetDateTime;
 @Entity
 //@Builder
 //Member & User는 postgresSQL 예약어로 테이블명으로 사용 할 수 없다.
-public class Members {//implements UserDetails {//UserDetails 을 상속받아 인증 객체로 시용
+public class Members implements UserDetails {//UserDetails 을 상속받아 인증 객체로 시용
 
     @Builder
     public Members(String name, String email, String password, boolean isMale,
@@ -65,8 +69,7 @@ public class Members {//implements UserDetails {//UserDetails 을 상속받아 �
     @Column(name = "birth", nullable = false)
     private LocalDate birth;
 
-    //    @Enumerated(EnumType.STRING)
-    @Column(name = "authority", nullable = false)
+     @Column(name = "authority", nullable = false)
     private String authority;
 
     @Column(name = "phone_number")
@@ -96,51 +99,51 @@ public class Members {//implements UserDetails {//UserDetails 을 상속받아 �
 //        return List.of(new SimpleGrantedAuthority("user"));
 //    }
 
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        Collection<GrantedAuthority> authorities = new ArrayList<>();
-////        authorities.add(()-> "ROLE_"+ authority);
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(()-> "ROLE_"+ authority);
 //        authorities.add(()-> authority.name());
-//        return authorities;
-//    }
-//
-//    //사용자 id 반환(고유해야함 - email 을 사용자 ID로 사용)
-//    @Override
-//    public String getUsername() {
-//        return email;
-//    }
-//
-//    //패스워드 반환
-//    @Override
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    //계정 만료 여부 반환
-//    @Override
-//    public boolean isAccountNonExpired() {
-//        return isEnabled;
-//    }
-//
-//    //계정 잠금 여부 반환
-//    @Override
-//    public boolean isAccountNonLocked() {
-//        //계정 잠금 확인 로직 구현
-//        return isEnabled;
-//    }
-//
-//    //패스워드의 만료 여부 반환
-//    @Override
-//    public boolean isCredentialsNonExpired() {
-//        //패스워드 만료 확인 로직 구현
-//        //예 - 패스워드 설정 후 6개월 경과 시 다시 설정하도록 하기 위해 사용
-//
-//        return isEnabled;
-//    }
-//
-//    //계정 사용 가능 여부
-//    @Override
-//    public boolean isEnabled() {
-//        return isEnabled;
-//    }
+        return authorities;
+    }
+
+    //사용자 id 반환(고유해야함 - email 을 사용자 ID로 사용)
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    //패스워드 반환
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    //계정 만료 여부 반환
+    @Override
+    public boolean isAccountNonExpired() {
+        return isEnabled;
+    }
+
+    //계정 잠금 여부 반환
+    @Override
+    public boolean isAccountNonLocked() {
+        //계정 잠금 확인 로직 구현
+        return isEnabled;
+    }
+
+    //패스워드의 만료 여부 반환
+    @Override
+    public boolean isCredentialsNonExpired() {
+        //패스워드 만료 확인 로직 구현
+        //예 - 패스워드 설정 후 6개월 경과 시 다시 설정하도록 하기 위해 사용
+
+        return isEnabled;
+    }
+
+    //계정 사용 가능 여부
+    @Override
+    public boolean isEnabled() {
+        return isEnabled;
+    }
 }
